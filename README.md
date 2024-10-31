@@ -1,5 +1,6 @@
 ### Data-Centric Baseline Code
 Data-Centrin 프로젝트를 위한 베이스라인 코드를 재작성했습니다.  
+코드가 복잡하지 않아 별도의 폴더들로 구분하지 않았습니다.  
 
 ### How To
 requirements는 기존 코드의 requirements와 동일합니다.  
