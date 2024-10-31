@@ -49,11 +49,11 @@ class MyTrainer:
             do_train=True,
             do_eval=True,
             do_predict=True,
-            logging_strategy='steps',
-            eval_strategy='steps',
+            logging_strategy='epoch',
+            eval_strategy='epoch',
             save_strategy='epoch',
             logging_steps=100,
-            eval_steps=100,
+            # eval_steps=100,
             # save_steps=100,
             save_total_limit=1,
             learning_rate= 2e-05, # 가능
@@ -88,8 +88,10 @@ class MyTrainer:
     def test(self, data=None):
         if data is None:
             test = pd.read_csv(os.path.join(self.data_path, 'test.csv'))
+            output_name = 'test_output.csv'
         else:
             test = data
+            output_name = 'valid_output.csv'
 
         if not os.path.isdir(self.model_path):
             print(f"No model in {self.model_path}")
@@ -109,8 +111,8 @@ class MyTrainer:
                 preds.extend(pred)
         
         test['target'] = preds
-        test.to_csv(os.path.join(self.data_path, 'output.csv'), index=False)
-        print(f"Saved predictions to {os.path.join(self.data_path, 'output.csv')}")
+        test.to_csv(os.path.join(self.data_path, output_name), index=False)
+        print(f"Saved predictions to {os.path.join(self.data_path, output_name)}")
     
     def compute_metrics(self, eval_pred):
         predictions, labels = eval_pred
