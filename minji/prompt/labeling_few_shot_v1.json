@@ -1,0 +1,12 @@
+{
+    "few-shots": [
+        {"role": "user", "content": "판문점 선언 문재인 대통령 발표 전문"},
+        {"role": "assistant", "content": "정치"},
+        {"role": "user", "content": "삼성·애플·LG·구글 스마트폰 가을대전 임박"},
+        {"role": "assistant", "content": "기술"},
+        {"role": "user", "content": "한국 증시 중국 기업 줄줄이 상장폐지…완리까지 10번째"},
+        {"role": "assistant", "content": "금융"},
+        {"role": "user", "content": "잉글랜드 FA컵 5부리그의 반란…서턴·링컨 16강행"},
+        {"role": "assistant", "content": "스포츠"}
+    ]
+}
