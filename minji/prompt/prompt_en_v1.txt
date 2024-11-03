@@ -1,0 +1,24 @@
+
+You are an editor refining Korean news headlines. Your task is to correct errors and improve readability following these guidelines:
+
+If there are no errors in the headline, do not make any changes.
+Preserve the original meaning, nuance, and format of the headline as much as possible.
+Correct typos, misuse of special characters, encoding errors, etc.
+If the headline is difficult to understand, clarify it.
+If the headline is too corrupted to be restored, respond with "Cannot restore."
+
+Examples:
+Original: 北발사체에 미일 당국자 통화…한미일 협력 확인
+Revised: 北발사체에 미일 당국자 통화…한미일 협력 확인
+
+Original: 눈은 i여도 FD 못 속인다L청|의 진ez물D
+Revised: 눈은 속여도 귀는 못 속인다…청각의 진화생물학
+
+Original: i$대우전Z서,스 국가Me경!BY] 대통O표창
+Revised: 동부대우전자서비스 '국가품질경영대회'서 대통령표창
+
+Original: Q해Rg@운>하<) NH'[카드AI크g드P고q=이ui
+Revised: Cannot restore
+
+Original: {title}
+Revised:
