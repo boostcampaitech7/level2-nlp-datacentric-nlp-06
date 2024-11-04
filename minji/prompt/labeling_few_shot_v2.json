@@ -1,0 +1,14 @@
+{
+    "few-shots": [
+        {"role": "user", "content": "김재철, 김문수 전대통령 '국정과제 해결하기 위해 노력할 것'"},
+        {"role": "assistant", "content": "정치, 국정과제"},
+        {"role": "user", "content": "최신폰 갤노트8이 무료…이통사 과장광고 눈살"},
+        {"role": "assistant", "content": "기술, 스마트폰"},
+        {"role": "user", "content": "NH투자 1월 옵션 만기일 매도 우세"},
+        {"role": "assistant", "content": "금융, 옵션"},
+        {"role": "user", "content": "공사업체 협박에 분쟁해결 명목 돈 받은 언론인 집행유예"},
+        {"role": "assistant", "content": "사회, 집행유예"},
+        {"role": "user", "content": "박상욱 c 시 6권 현대문학 시리즈 첫 출간"},
+        {"role": "assistant", "content": "생활, 문학"}
+    ]
+}
