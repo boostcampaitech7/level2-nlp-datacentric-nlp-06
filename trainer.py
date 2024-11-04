@@ -36,8 +36,10 @@ class MyTrainer:
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=7).to(DEVICE)
 
-        data = pd.read_csv(os.path.join(self.data_path, 'train.csv'))
-        train, valid_ = train_test_split(data, test_size=0.3, random_state=SEED) # train, test 비율 수정 가능
+        # data = pd.read_csv(os.path.join(self.data_path, 'train.csv'))
+        # train, valid_ = train_test_split(data, test_size=0.3, random_state=SEED) # train, test 비율 수정 가능
+        train = pd.read_csv(os.path.join(self.data_path, 'train.csv'))
+        valid_ = pd.read_csv(os.path.join(self.data_path, 'validation.csv'))
         train = BERTDataset(train, tokenizer)
         valid = BERTDataset(valid_, tokenizer)
 
@@ -98,7 +100,12 @@ class MyTrainer:
             return
 
         tokenizer = AutoTokenizer.from_pretrained(self.model_path)
-        model = AutoModelForSequenceClassification.from_pretrained(os.path.join(self.model_path, 'checkpoint-124'), num_labels=7).to(DEVICE)
+
+        checkpoints = [d for d in os.listdir(self.model_path) if d.startswith("checkpoint")]
+        latest_checkpoint = max(checkpoints, key=lambda x: int(x.split("-")[-1])) if checkpoints else None
+        checkpoint_path = os.path.join(self.model_path, latest_checkpoint)
+
+        model = AutoModelForSequenceClassification.from_pretrained(checkpoint_path, num_labels=7).to(DEVICE)
         
         model.eval()
         preds = []
