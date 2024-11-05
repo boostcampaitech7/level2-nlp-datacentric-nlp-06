@@ -1,0 +1,14 @@
+{
+    "few-shots": [
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "대한항공 우리카드 꺾고 3연승…GS칼텍스 1라운드 전승종합"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "MBC 류현진 특집 다큐…MLB 전설에게 듣는 류현진"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "아시안게임 여자축구 인도네시아 상대로 손화연·이현영 ..."},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "NBA에서 벗겨진 농구화 들고 블록슛 시도…막았으니 됐다"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "양효진 우리 꼭 이겨야 한다고 다짐하면서 훈련 중"}
+    ]
+}
