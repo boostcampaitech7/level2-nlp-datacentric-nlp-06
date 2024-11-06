@@ -1,13 +1,12 @@
-import torch
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
 from torch.nn import functional as F
 from sentence_transformers import SentenceTransformer
+import logging 
+logging.basicConfig(level=logging.INFO)
 
 # 데이터 가져오기
-data_path = "../../datasets/v1.3.1/"
-save_path = "../../datasets/v1.3.2/"
+data_path = "../../datasets/v2.0.4/"
+save_path = "../../datasets/v2.0.6/"
 data = pd.read_csv(f"{data_path}train.csv")
 train_data = data[data.ID.str.startswith('ynat')]
 syn_data = data[~data.ID.str.startswith('ynat')]
@@ -67,3 +66,5 @@ for i in range(7):
 # 해당 데이터 삭제 및 저장
 data_sim_del = data[~data.ID.isin(syn_to_delete)]
 data_sim_del.to_csv(f"{save_path}train.csv", index=False)
+
+logging.info(f"Deleted data: {len(syn_to_delete)} / {len(data)}")

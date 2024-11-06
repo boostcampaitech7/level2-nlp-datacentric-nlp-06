@@ -1,14 +1,24 @@
 {
     "few-shots": [
         {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
-        {"role": "assistant", "content": "대한항공 우리카드 꺾고 3연승…GS칼텍스 1라운드 전승종합"},
+        {"role": "assistant", "content": "영화감독 같은 지휘자, 판타지 영화 같은 말러 교향곡"},
         {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
-        {"role": "assistant", "content": "MBC 류현진 특집 다큐…MLB 전설에게 듣는 류현진"},
+        {"role": "assistant", "content": "화천 산천어축제 개막…얼음썰매 질주"},
         {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
-        {"role": "assistant", "content": "아시안게임 여자축구 인도네시아 상대로 손화연·이현영 ..."},
+        {"role": "assistant", "content": "호주한인극단 한영 이중언어 뮤지컬…현지인 관객도 극찬"},
         {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
-        {"role": "assistant", "content": "NBA에서 벗겨진 농구화 들고 블록슛 시도…막았으니 됐다"},
+        {"role": "assistant", "content": "현대무용수 김천웅, 한국인 최초로 이스라엘 바체바무용단 입단"},
         {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
-        {"role": "assistant", "content": "양효진 우리 꼭 이겨야 한다고 다짐하면서 훈련 중"}
+        {"role": "assistant", "content": "'서소문 대법원을 기억하시나요'…대법, 옛 청사 사진전"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "'커피·빵·문화를 즐겨라' 제8회 라라라 페스티벌 개최"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "클래식 공연 즐기고 낮잠도 자고…영화관의 변신"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "[남원소식] 춘향장학재단 장학생 모집"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "호킹 두차례 한국 찾아…소광섭 교수 \"모짜르트 같은 천재\""},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "런던심포니가 들려준 천상의 삶…평화롭지만 지루해"}
     ]
 }
