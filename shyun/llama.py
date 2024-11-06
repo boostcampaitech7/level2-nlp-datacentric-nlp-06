@@ -73,7 +73,6 @@ class Llama:
             keys = ', '.join(keys)
             messages = \
                 [{"role": "system", "content": sys_prompt}] + \
-                fewshot +\
                 [{"role": "user", "content": keys}]
             
             result = self.generate(messages)
