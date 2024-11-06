@@ -3,7 +3,7 @@ import os, json, tqdm
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-from fewshots import prompt
+import prompt
 
 MODEL = 'Bllossom/llama-3.2-Korean-Bllossom-3B' # 'beomi/Llama-3-Open-Ko-8B'
 
@@ -124,4 +124,3 @@ class Llama:
                 train_dataset.loc[train_dataset['ID']==data['ID'], 'text'] = result
         
         train_dataset.to_csv(os.path.join(path, 'text_cleaned.csv'), index=False)
-        
