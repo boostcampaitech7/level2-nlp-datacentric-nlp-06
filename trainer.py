@@ -37,7 +37,7 @@ class MyTrainer:
         model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=7).to(DEVICE)
 
         data = pd.read_csv(os.path.join(self.data_path, 'train.csv'))
-        train, valid_ = train_test_split(data, test_size=0.3, random_state=SEED) # train, test 비율 수정 가능
+        train, valid_ = train_test_split(data, test_size=0.2, random_state=SEED) # train, test 비율 수정 가능
         train = BERTDataset(train, tokenizer)
         valid = BERTDataset(valid_, tokenizer)
 
