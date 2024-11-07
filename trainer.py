@@ -36,7 +36,7 @@ class MyTrainer:
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=7).to(DEVICE)
 
-        data = pd.read_csv(os.path.join(self.data_path, 'train.csv'))
+        data = pd.read_csv(os.path.join(self.data_path, 'v3_concat_cleanlab.csv'))
         train, valid_ = train_test_split(data, test_size=0.2, random_state=SEED) # train, test 비율 수정 가능
         train = BERTDataset(train, tokenizer)
         valid = BERTDataset(valid_, tokenizer)
@@ -62,7 +62,7 @@ class MyTrainer:
             adam_epsilon=1e-08, # 불가
             weight_decay=0.01, # 불가
             lr_scheduler_type='linear', # 불가
-            per_device_train_batch_size=32, # 가능
+            per_device_train_batch_size=16, # 가능
             per_device_eval_batch_size=32, # 32인 건 이유가 있다.
             num_train_epochs=2, # 불가
             # load_best_model_at_end=True,
@@ -96,7 +96,7 @@ class MyTrainer:
         if not os.path.isdir(self.model_path):
             print(f"No model in {self.model_path}")
             return
-
+        print("Model_path exists")
         tokenizer = AutoTokenizer.from_pretrained(self.model_path)
         checkpoints = [d for d in os.listdir(self.model_path) if d.startswith('checkpoint-')]
         model = AutoModelForSequenceClassification.from_pretrained(os.path.join(self.model_path, checkpoints[0]), num_labels=7).to(DEVICE)
