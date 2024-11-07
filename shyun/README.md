@@ -25,7 +25,7 @@ pip install -r requirements.txt
 # or just install hanja, cleanlab, transformers, sentence-transformers
 ```
 
-**`prep_main.py`**: **src**의 모듈들을 사용하여 데이터 전처리, 증강을 수행  
+- **`prep_main.py`**: **src**의 모듈들을 사용하여 데이터 전처리, 증강을 수행  
 - **`src/llama`**: LLaMA 모델을 이용한 **라벨 추출**, **텍스트 정제**, **라벨 정제**(src/prompt에서 system prompt와 fewshot prompt 호출)  
 - **`src/clean`**: re, hanja, cleanlab을 이용한 **텍스트 정제 및 오염도 확인**  
 - **`src/augmentation`**: NLLB 모델, SBERT 모델을 이용한 **역번역**, Easy Data Augmentation-**Synonym Replacement** 증강 기법  
