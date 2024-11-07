@@ -12,8 +12,8 @@ def main():
     ## 데이터 전처리 ------------------------------------------------------
 
     # v0.0.3 - Text Denoising
-    data = pd.read_csv("./data/train.csv")
-    save_path_v003 = "./datasets/v0.0.3/"
+    data = pd.read_csv("../../data/train.csv")
+    save_path_v003 = "../../datasets/v0.0.3/"
     clean.clean_characters(
         data, 
         system_prompt_path="./prompt/denoise_prompt.txt", 
@@ -23,11 +23,11 @@ def main():
 
     # 모델 학습 (v0.0.3 데이터 기반)
     print("Training the model with v0.0.3 data...")
-    subprocess.run(["python", "../main.py", "--data", "./datasets/v0.0.3", "--model", "../model", "--mode", "train"])
+    subprocess.run(["python", "../main.py", "--data", "../../datasets/v0.0.3", "--model", "../model", "--mode", "train"])
 
     # v0.0.4 - Relabeling
     data = pd.read_csv(f"{save_path_v003}train.csv")
-    save_path_v004 = "./datasets/v0.0.4/"
+    save_path_v004 = "../../datasets/v0.0.4/"
     clean.clean_labels_llama(
         model_path="../model",
         data=data,
@@ -38,11 +38,11 @@ def main():
 
     # 모델 학습 (v0.0.4 데이터 기반)
     print("Training the model with v0.0.4 data...")
-    subprocess.run(["python", "../main.py", "--data", "./datasets/v0.0.4", "--model", "../model", "--mode", "train"])
+    subprocess.run(["python", "../main.py", "--data", "../../datasets/v0.0.4", "--model", "../model", "--mode", "train"])
 
     # v0.0.5 - 라벨 오류 제거
     data = pd.read_csv(f"{save_path_v004}train.csv")
-    save_path_v005 = "./datasets/v0.0.5/"
+    save_path_v005 = "../../datasets/v0.0.5/"
     clean.clean_labels_cleanlab(
         model_path="../model",
         data=data,
@@ -53,7 +53,7 @@ def main():
 
     # v1.0.1 - Target별 데이터 증강
     fewshot_data = pd.read_csv(f"{save_path_v005}train.csv")
-    save_path_v101 = "./datasets/v1.0.1/"
+    save_path_v101 = "../../datasets/v1.0.1/"
     syn.generate_all_targets(
         save_path=save_path_v101, 
         fewshot_data=fewshot_data, 
@@ -64,7 +64,7 @@ def main():
     # v1.0.2 - Target별 유사한 데이터 삭제
     train_data = pd.read_csv(f"{save_path_v005}train.csv")
     synthetic_data = pd.read_csv(f"{save_path_v101}synthetic.csv")
-    save_path_v102 = "./datasets/v1.0.2/"
+    save_path_v102 = "../../datasets/v1.0.2/"
     clean.delete_similar_text(
         train_data=train_data,
         synthetic_data=synthetic_data,
@@ -81,9 +81,9 @@ def main():
 
     # 모델 학습 (v1.0.2 데이터 기반)
     print("Training the model with v1.0.2 data...")
-    subprocess.run(["python", "../main.py", "--data", "./datasets/v1.0.2", "--model", "../model", "--mode", "train"])
+    subprocess.run(["python", "../main.py", "--data", "../../datasets/v1.0.2", "--model", "../model", "--mode", "train"])
 
-    save_path_v103 = "./datasets/v1.0.3/"
+    save_path_v103 = "../../datasets/v1.0.3/"
     clean.clean_labels_cleanlab(
         model_path="../model",
         data=new_train,
@@ -92,10 +92,10 @@ def main():
 
     # v1.1.1 - 추가 합성 데이터 생성
     targets = [0, 4, 5]
-    save_path_v111 = "./datasets/v1.1.1/"
+    save_path_v111 = "../../datasets/v1.1.1/"
     syn.generate_targetwise(
         targets=targets, 
-        fewshot_path="./prompt/synthetic_fewshot", 
+        fewshot_path="../../prompt/synthetic_fewshot", 
         save_path=save_path_v111, 
         num=10
     )
