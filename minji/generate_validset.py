@@ -1,14 +1,21 @@
 import os
+import sys
+from tqdm import tqdm
 import argparse
 import logging
 import pandas as pd
+import numpy as np
 from cleanlab.rank import get_label_quality_scores
-from calculate_prediction_prob import pred_prob_kfold
-from noise_score import noise_score_spacy
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+import torch
 logging.basicConfig(level="INFO")
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(current_dir)
+from src.noise_score import noise_score_spacy
 
-def main(data_path, save_path):
+        
+def main(data_path, model_path, save_path):
     # 데이터 읽어오기
     logging.info("Reading dataset...")
     data = pd.read_csv(f"{data_path}train.csv")
@@ -19,7 +26,25 @@ def main(data_path, save_path):
     
     # label 품질 점수 계산
     logging.info("Calculating label quality scores...")
-    pred_probs = pred_prob_kfold(data, k=5)
+    checkpoints = [d for d in os.listdir(model_path) if d.startswith("checkpoint")]
+    latest_checkpoint = max(checkpoints, key=lambda x: int(x.split("-")[-1])) if checkpoints else None
+    checkpoint_path = os.path.join(model_path, latest_checkpoint)
+    
+    DEVICE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+    tokenizer = AutoTokenizer.from_pretrained(model_path)
+    model = AutoModelForSequenceClassification.from_pretrained(checkpoint_path, num_labels=7).to(DEVICE)
+    model.eval()
+    
+    # prediction probability 계산
+    pred_probs = []
+    for idx, row in tqdm(data.iterrows(), total=len(data)):
+        tokenized_input = tokenizer(row['text'], padding='max_length', max_length=50, truncation=False, return_tensors='pt').to(DEVICE)
+        with torch.no_grad():
+            logits = model(**tokenized_input).logits
+            probs = torch.nn.functional.softmax(logits, dim=1)
+            pred_probs.extend(probs.cpu().numpy())
+    pred_probs = np.array(pred_probs)
+
     label_quality_scores = get_label_quality_scores(
         labels=data['target'].values,
         pred_probs=pred_probs
@@ -36,6 +61,11 @@ def main(data_path, save_path):
     # 나머지는 train data로 저장
     train_data = data[~data.ID.isin(validation_data.ID)]
     
+    # 불필요한 열 삭제
+    cols = ["ID", "text", "target"]
+    train_data = train_data[cols]
+    validation_data = validation_data[cols]
+    
     logging.info("Saving results...")
     if not os.path.exists(save_path):
         os.makedirs(save_path)
@@ -46,7 +76,8 @@ def main(data_path, save_path):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_path', type=str, default='../../data/', help='path where data csv is stored')
+    parser.add_argument('--model_path', type=str, default='../model')
     parser.add_argument('--save_path', type=str, default='../../datasets/v0.0.2/', help='path for saving dataset')
     args = parser.parse_args()
     
-    main(args.data_path, args.save_path)
+    main(args.data_path, args.model_path, args.save_path)
