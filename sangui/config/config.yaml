@@ -10,7 +10,7 @@
 "device": "cuda"
 
 "mlm":
-  "model_name": ""klue/bert-base"
+  "model_name": "klue/bert-base"
   "model_output_dir": "../model/mlm/"
   "batch_size": 8
   "train": True
