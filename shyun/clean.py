@@ -1,4 +1,4 @@
-import os
+import os, re, hanja
 from tqdm import tqdm
 
 import torch
@@ -8,23 +8,39 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 DEVICE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
-class CleanLab():
-    def __init__(self, model_path):
-        self.tokenizer = AutoTokenizer.from_pretrained(model_path)
+class Clean():
+    def clean_characters(self, train_dataset, path):
+        korean = re.compile('[^가-힣...…\s]+') # 한국어, ..., …, 공백 외의 문자가 한 번 이상 등장할 경우에 대한 패턴
+
+        train_dataset['polluted_lv'] = None
+        for _, data in tqdm(train_dataset.iterrows(), desc='characters', total=len(train_dataset)):
+            text = data['text']
+            text = hanja.translate(text, 'substitution')
+            text = re.sub(r"[^\uAC00-\uD7A30-9a-zA-Z\s]", "", text)
+            
+            results = korean.findall(text)
+            total = sum([len(r) for r in results])
+            prob = total / len(text)
+            train_dataset.loc[train_dataset['ID']==data['ID'], 'polluted_lv'] = prob
+            train_dataset.loc[train_dataset['ID']==data['ID'], 'text'] = text
+
+        train_dataset.to_csv(os.path.join(path, 'cleaned_char-polluted_lv.csv'), index=False)
+
+    def clean_labels(self, model_path, train_dataset, path):
+        tokenizer = AutoTokenizer.from_pretrained(model_path)
 
         checkpoints = [d for d in os.listdir(model_path) if d.startswith("checkpoint")]
         latest_checkpoint = max(checkpoints, key=lambda x: int(x.split("-")[-1])) if checkpoints else None
         checkpoint_path = os.path.join(model_path, latest_checkpoint)
 
-        self.model = AutoModelForSequenceClassification.from_pretrained(checkpoint_path, num_labels=7).to(DEVICE)
-        self.model.eval()
-    
-    def clean_labels(self, train_dataset, path):
+        model = AutoModelForSequenceClassification.from_pretrained(checkpoint_path, num_labels=7).to(DEVICE)
+        model.eval()
+
         preds = []
         for _, data in tqdm(train_dataset.iterrows(), desc='logits', total=len(train_dataset)):
-            tokenized = self.tokenizer(data['text'], padding='max_length', max_length=50, truncation=True, return_tensors='pt').to(DEVICE)
+            tokenized = tokenizer(data['text'], padding='max_length', max_length=50, truncation=True, return_tensors='pt').to(DEVICE)
             with torch.no_grad():
-                logits = self.model(**tokenized).logits.cpu().numpy()
+                logits = model(**tokenized).logits.cpu().numpy()
                 softmax = [np.exp(x)/np.sum(np.exp(logits)) for x in logits]
                 preds.append({'ID': data['ID'], 'softmax': softmax})
 
