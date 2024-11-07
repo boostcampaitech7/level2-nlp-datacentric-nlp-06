@@ -73,14 +73,13 @@ def pred_prob_kfold(data, k=5):
         # Trainer 설정 (main 구성과 동일)
         model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=7).to(DEVICE)
         training_args = TrainingArguments(
-            output_dir=f'./results_{fold}',
+            output_dir=f'./outputs',
             overwrite_output_dir=True,
             do_train=True,
             do_eval=True,
-            do_predict=True,
-            logging_strategy='epoch',
             eval_strategy='epoch',
-            save_strategy='epoch',
+            logging_strategy='no',
+            save_strategy='no',
             logging_steps=100,
             save_total_limit=1,
             learning_rate= 2e-05, # 가능
