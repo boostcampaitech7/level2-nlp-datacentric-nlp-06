@@ -2,6 +2,7 @@
 import pandas as pd
 from src.clean import Clean
 from src.synthetic import SyntheticData
+import subprocess
 
 def main():
     # 클래스 초기화
@@ -21,9 +22,8 @@ def main():
     )
 
     # 모델 학습 (v0.0.3 데이터 기반)
-    print("Please run the following command to train the model:")
-    print("python ../main.py --data ./datasets/v0.0.3 --model ../model --mode train")
-    input("Press Enter after model training is complete...")
+    print("Training the model with v0.0.3 data...")
+    subprocess.run(["python", "../main.py", "--data", "./datasets/v0.0.3", "--model", "../model", "--mode", "train"])
 
     # v0.0.4 - Relabeling
     data = pd.read_csv(f"{save_path_v003}train.csv")
@@ -37,9 +37,8 @@ def main():
     )
 
     # 모델 학습 (v0.0.4 데이터 기반)
-    print("Please run the following command to train the model:")
-    print("python ../main.py --data ./datasets/v0.0.4 --model ../model --mode train")
-    input("Press Enter after model training is complete...")
+    print("Training the model with v0.0.4 data...")
+    subprocess.run(["python", "../main.py", "--data", "./datasets/v0.0.4", "--model", "../model", "--mode", "train"])
 
     # v0.0.5 - 라벨 오류 제거
     data = pd.read_csv(f"{save_path_v004}train.csv")
@@ -81,9 +80,8 @@ def main():
     new_train.to_csv(f"{save_path_v102}train.csv", index=False)
 
     # 모델 학습 (v1.0.2 데이터 기반)
-    print("Please run the following command to train the model:")
-    print("python ../main.py --data ./datasets/v1.0.2 --model ../model --mode train")
-    input("Press Enter after model training is complete...")
+    print("Training the model with v1.0.2 data...")
+    subprocess.run(["python", "../main.py", "--data", "./datasets/v1.0.2", "--model", "../model", "--mode", "train"])
 
     save_path_v103 = "./datasets/v1.0.3/"
     clean.clean_labels_cleanlab(
