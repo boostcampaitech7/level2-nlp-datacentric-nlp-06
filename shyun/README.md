@@ -34,11 +34,11 @@ pip install -r requirements.txt
 **최종 성능**  
 baseline  
 
-<img src='./assets/baseline.png' width='500' height='48'>  
+<img src='./assets/baseline.png' height='48'>  
 
 result
 
-<img src='./assets/final.png' width='500' height='48'>  
+<img src='./assets/final.png' height='48'>  
 
 **최종 선택한 기법**  
 1. `src/clean` clean_characters  
