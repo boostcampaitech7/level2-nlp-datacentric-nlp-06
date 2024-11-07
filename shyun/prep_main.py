@@ -21,6 +21,8 @@ def main():
     # lama.regenerate(list(keys.values()), train_dataset, num=10, path='./test')
 
     # cl = Clean()
+    # valid_predictions = pd.read_csv('../../v1.3.0/valid_output.csv)
+    # cl.check_f1(train_dataset, valid_predictions, path='./test)
     # cl.clean_labels('../../model-v1.3.6', train_dataset, path='./test')
     # cl.clean_characters(train_dataset, path='./test')
 

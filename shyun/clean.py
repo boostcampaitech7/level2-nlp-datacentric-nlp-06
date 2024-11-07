@@ -3,12 +3,35 @@ from tqdm import tqdm
 
 import torch
 import numpy as np
+import pandas as pd
 from cleanlab.filter import find_label_issues
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 DEVICE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
 class Clean():
+    def check_f1(self, train_dataset, valid_predictions, path):
+        targets = pd.DataFrame(columns=['target', 'total', 'train', 'valid', 'f1'])
+        targets['target'] = np.arange(7)
+
+        val_ids = list(valid_predictions['ID'].values)
+        train = train_dataset[~train_dataset['ID'].str.contains('|'.join(val_ids))]
+        val_answer = train_dataset[train_dataset['ID'].str.contains('|'.join(val_ids))]
+
+        label = range(7)
+        for l in label:
+            targets.loc[targets['target']==l, 'total'] = len(train_dataset[train_dataset['target']==l])
+            targets.loc[targets['target']==l, 'train'] = len(train[train['target']==l])
+            targets.loc[targets['target']==l, 'valid'] = len(valid_predictions[valid_predictions['target']==l])
+
+            val_correct = valid_predictions[(valid_predictions['target']==l) & valid_predictions['ID'].str.contains('|'.join((val_answer[val_answer['target']==l]['ID'].values)))]
+            recall = len(val_correct) / (len(val_answer[val_answer['target']==l]))
+            precision = len(val_correct) / (len(valid_predictions[valid_predictions['target']==l]))
+
+            targets.loc[targets['target']==l, 'f1'] = 2 * precision * recall / (precision + recall)
+
+        targets.to_csv(os.path.join(path, 'f1_scores.csv'), index=False)
+
     def clean_characters(self, train_dataset, path):
         korean = re.compile('[^가-힣...…\s]+') # 한국어, ..., …, 공백 외의 문자가 한 번 이상 등장할 경우에 대한 패턴
 
