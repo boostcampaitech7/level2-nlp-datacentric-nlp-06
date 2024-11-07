@@ -3,6 +3,8 @@
 레이블이 잘못 부여된 데이터의 레이블 재부여
 
 ### Usage
+src 폴더에서 작업 진행
+
 ## Requirements
 ```bash
 pip install -r requirements.txt
