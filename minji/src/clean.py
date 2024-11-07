@@ -1,6 +1,6 @@
 import os
 import sys
-import tqdm
+from tqdm import tqdm
 import logging
 import pandas as pd
 import numpy as np
@@ -8,8 +8,8 @@ from collections import Counter
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 
-
 import torch
+from torch.nn import functional as F
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from sentence_transformers import SentenceTransformer
 from cleanlab.filter import find_label_issues
@@ -44,8 +44,8 @@ class Clean():
         # 노이즈 제거된 데이터 저장
         data_final = data_denoise[data_denoise.denoised_text != "복구 불가"]  # 복구 불가한 텍스트 제외
         data_final['text'] = data_final['denoised_text']  # 재작성된 텍스트로 text 대체
-        data_final = data_final[['ID', 'text', 'target']]
         data_final = pd.concat([data_clean, data_final], axis=0)  # denoise 완료 데이터
+        data_final = data_final[['ID', 'text', 'target']]
         
         # 폴더가 없으면 생성
         if not os.path.exists(save_path):
@@ -168,7 +168,41 @@ class Clean():
             os.makedirs(save_path)
         relabelled_data.to_csv(save_path+"train.csv", index=False)
 
+    def delete_similar_text(self, train_data, synthetic_data, save_path, similarity_threshold=0.85, filename="train.csv"):
+        # 폴더가 없으면 생성
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+        
+        # 임베딩 계산 모델 로드
+        model = SentenceTransformer('snunlp/KR-SBERT-V40K-klueNLI-augSTS')
+        
+        # 유사도가 높은 항목의 ID를 저장할 리스트
+        syn_to_delete = []
+        for target in range(7):
+            # 해당 타겟의 텍스트 필터링
+            train_target_data = train_data[train_data['target'] == target]
+            syn_target_data = synthetic_data[synthetic_data['target'] == target]
 
+            # 해당 타겟의 텍스트 임베딩
+            train_embeddings = model.encode(train_target_data['text'].tolist(), convert_to_tensor=True)
+            syn_embeddings = model.encode(syn_target_data['text'].tolist(), convert_to_tensor=True)
+
+            # 유사도 계산 및 삭제할 ID 수집
+            for i, train_emb in enumerate(train_embeddings):
+                for j, syn_emb in enumerate(syn_embeddings):
+                    cos_sim = F.cosine_similarity(train_emb, syn_emb, dim=0).item()
+
+                    # 유사도가 기준 이상인 경우 해당 ID 추가
+                    if cos_sim >= similarity_threshold:
+                        syn_to_delete.append(syn_target_data.iloc[j]['ID'])
+        
+        # 해당 데이터 삭제 및 저장
+        data_sim_del = synthetic_data[~synthetic_data.ID.isin(syn_to_delete)]
+        data_sim_del.to_csv(f"{save_path}train.csv", index=False)
+
+        logging.info(f"Deleted data: {len(syn_to_delete)} / {len(train_data)}")
+        
+        
     def plot_noise_scores(self, data_path, save_path, filename):        
         # noise score 계산
         data = pd.read_csv(data_path)
