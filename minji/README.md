@@ -8,9 +8,9 @@
 #### 2. 합성 데이터 생성
 - 레이블 별 데이터 수를 100개 이상 생성하여 데이터 추가.
 - 모델이 특정 레이블(0, 4, 5)을 잘 탐지하지 못하는 경우에 대해 few-shot을 활용한 데이터 증강
-    - [label 0의 few-shot 예시](./prompt/synthetic_fewshot_0.json)
-    - [label 4의 few-shot 예시](./prompt/synthetic_fewshot_4.json)
-    - [label 5의 few-shot 예시](./prompt/synthetic_fewshot_5.json)
+    - label 0: 문화 생활 관련 text 생성 ([few-shot](./prompt/synthetic_fewshot_0.json))
+    - label 4: 과학 기술 관련 text 생성 ([few-shot](./prompt/synthetic_fewshot_4.json))
+    - label 5: IT 기업의 경제 소식 관련 text 생성 ([few-shot](./prompt/synthetic_fewshot_5.json))
 
 ## 결과
 - **평가기준**: Macro F1-score
