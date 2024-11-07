@@ -51,7 +51,7 @@ save_path = "../../datasets/v1.0.2/"
 similarity_threshold = 0.85
 clean.delete_similar_text(train_data, synthetic_data, save_path, similarity_threshold, filename="synthetic.csv")
 
-# v1.0.3 v0.0.5 라벨 오류 제거
+# v1.0.3 라벨 오류 제거
 org_train = pd.read_csv("../../datasets/v0.0.5/train.csv")
 synthetic = pd.read_csv("../../datasets/v1.0.2/synthetic.csv")
 new_train = pd.concat([org_train, synthetic], axis=0)
@@ -66,7 +66,7 @@ clean.clean_labels_cleanlab(model_path, data, save_path)
 targets=[0,4,5]
 fewshot_path="./prompt/synthetic_fewshot"
 save_path = "../../datasets/v1.1.1/"
-num = 10  # 100
+num = 200
 syn.generate_targetwise(targets, fewshot_path, save_path, num)
 
 # v1.2.1 - v1.0.3과 v.1.1.1 데이터 합치기
