@@ -1,4 +1,7 @@
-import os, json, tqdm
+# import tqdm
+from tqdm import tqdm
+import os, json
+import pandas as pd
 
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
@@ -42,7 +45,7 @@ class Llama:
 
         return self.tokenizer.decode(outputs[0][input_ids.shape[-1]:], skip_special_tokens=True)
     
-    def extract_label(self, train_dataset):
+    def extract_label(self, train_dataset, path):
         sys_prompt, fewshot = prompt.extract_label_prompt()
 
         target = train_dataset[(0.30<train_dataset['polluted_lv']) & (train_dataset['polluted_lv']<0.40)]
@@ -82,7 +85,7 @@ class Llama:
         for idx, key in enumerate(final_keys):
             key_maps[idx] = key
         
-        with open('./key_maps.json', 'w') as f:
+        with open(os.path.join(path, 'key_maps.json'), 'w') as f:
             json.dump(key_maps, f, ensure_ascii=False)
 
     def clean_label(self, keys, train_dataset, p, path): # keys: json 형태의 key 그대로 전달
@@ -107,9 +110,9 @@ class Llama:
         train_dataset.to_csv(os.path.join(path, 'label_cleaned.csv'), index=False)
 
     def clean_text(self, keys, train_dataset, p, path):
-        target = train_dataset[train_dataset['pollute_lv'] > p]
+        target = train_dataset[train_dataset['polluted_lv'] > p]
 
-        for idx, key in tqdm(enumerate(keys.values()), total=len(keys), position=0):
+        for idx, key in tqdm(enumerate(keys), total=len(keys), position=0):
             sys_prompt, fewshot = prompt.clean_text_prompt(key)
 
             key_target = target[target['target']==idx]
@@ -123,3 +126,48 @@ class Llama:
                 train_dataset.loc[train_dataset['ID']==data['ID'], 'text'] = result
         
         train_dataset.to_csv(os.path.join(path, 'text_cleaned.csv'), index=False)
+
+    def generate_new(self, keys, train_dataset, num, path):
+        generate = pd.DataFrame(columns=['ID', 'text', 'target', 'polluted_lv'])
+        for idx, key in tqdm(enumerate(keys), total=len(keys), position=0):
+            target_gen = pd.DataFrame(columns=['ID', 'text', 'target', 'polluted_lv'])
+            shots = train_dataset[(train_dataset['target']==idx) & (train_dataset['polluted_lv']<0.3)].sample(10)['text'].values
+            
+            sys_prompt, fewshot = prompt.generate_prompt(key, shots)
+
+            for i in tqdm(range(num), desc=f'target={idx}', total=num, position=1, leave=False):
+                messages = \
+                    [{"role": "system", "content": sys_prompt}] + \
+                    fewshot + \
+                    [{"role": "user", "content": f"'{key}' 분야에 해당하는 기사 제목을 한 개만 생성하세요."}]
+                
+                result = self.generate(messages)
+                target_gen.loc[i] = [f'generate-{idx}-{i}', result, idx, -1]
+            
+            generate = pd.concat([generate, target_gen])
+        
+        generate.to_csv(os.path.join(path, 'generated.csv'), index=False)
+    
+    def regenerate(self, keys, train_dataset, num, path):
+        regenerate = pd.DataFrame(columns=['ID', 'text', 'target', 'polluted_lv'])
+        for idx, key in tqdm(enumerate(keys), total=len(keys), position=0):
+            target_regen = pd.DataFrame(columns=['ID', 'text', 'target', 'polluted_lv'])
+            target = train_dataset[(train_dataset['target']==idx) & (train_dataset['polluted_lv']<0.3)]['text'].values
+            
+            if len(target) < num:
+                num = len(target)
+            
+            sys_prompt, fewshot = prompt.regenerate_prompt(key)
+
+            for i in tqdm(range(num), desc=f'target={idx}', total=num, position=1, leave=False):
+                messages = \
+                    [{"role": "system", "content": sys_prompt}] + \
+                    fewshot + \
+                    [{"role": "user", "content": target[i]}]
+
+                result = self.generate(messages)
+                target_regen.loc[i] = [f'regenerate-{idx}-{i}', result, idx, -1]
+            
+            regenerate = pd.concat([regenerate, target_regen])
+        
+        regenerate.to_csv(os.path.join(path, 'regenerated.csv'), index=False)

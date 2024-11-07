@@ -20,7 +20,7 @@ def extract_label_prompt():
 
     return sys_prompt, fewshot
 
-def clean_text_promt(key):
+def clean_text_prompt(key):
     sys_prompt = f'''당신은 기사 제목을 복원하는 전문가입니다.
 1. 키워드는 '{key}'입니다.
 2. 어색한 문맥을 키워드를 참고하여 올바르게 고치세요.
@@ -30,7 +30,7 @@ def clean_text_promt(key):
         {"role": "user", "content": "해외로밍 m금폭탄 n동차단 더 빨진다"},
         {"role": "assistant", "content": "해외로밍 요금 폭탄 자동차단 더 빨라진다"},
         {"role": "user", "content": "코z나0i9규직Zj정규직 E문R비교"},
-        {"role": "assistant", "content": f"{key}코로나 정규직 비정규직 E문R비교"},
+        {"role": "assistant", "content": f"{key} 코로나 정규직 비정규직 E문R비교"},
         {"role": "user", "content": "정i 파1 미사z KT 이용기간 2e 단 Q분종U2보"},
         {"role": "assistant", "content": f"{key} 정i 파1 미사z KT 이용기간 2e 단 Q분종U2보"}
     ]
@@ -53,6 +53,26 @@ def clean_label_prompt(keys):
         {"role": "assistant", "content": "2"},
         {"role": "user", "content": "국제유가곡물가올해 농업경영비 33 감소 전망"},
         {"role": "assistant", "content": "3"}
+    ]
+
+    return sys_prompt, fewshot
+
+def generate_prompt(key, shots):
+    sys_prompt = f'''당신은 '{key}' 분야의 기사 제목을 작성하는 전문 작가입니다. 주어진 예시를 바탕으로 다양한 형태의 기사 제목을 작성해 주세요.'''
+
+    fewshot = []
+    for shot in shots:
+        fewshot.append({"role": "user", "content": f"'{key}' 분야에 해당하는 기사 제목을 한 개만 생성하세요."})
+        fewshot.append({"role": "assistant", "content": shot})
+    
+    return sys_prompt, fewshot
+
+def regenerate_prompt(key):
+    sys_prompt = f'''당신은 '{key}' 분야의 기사 제목을 재작성하는 전문가입니다. 제공된 기사 제목의 의미를 보존하며 재작성 하세요.'''
+
+    fewshot = [
+        {'role': 'user', 'content': '보령소식 보령시 시간선택제 공무원 3명 모집'},
+        {'role': 'assistant', 'content': '보령시에서 새로운 시간제 공무원 모집'}
     ]
 
     return sys_prompt, fewshot
