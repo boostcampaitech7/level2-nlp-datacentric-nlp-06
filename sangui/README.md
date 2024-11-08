@@ -4,12 +4,14 @@
 레이블이 잘못 부여된 데이터의 레이블 재부여
 
 ### Performance
-Accuracy, F1 score
+Metrics : Accuracy, F1 score
 
 baseline
+
 <img src='./images/baseline.png' height='48'>
 
 mine
+
 <img src='./images/mine.png' height='48'>
 
 
