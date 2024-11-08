@@ -1,0 +1,12 @@
+{
+    "few-shots": [
+        {"role": "user", "content": "눈은 i여도 FD 못 속인다L청|의 진ez물D"},
+        {"role": "assistant", "content": "눈은 속여도 귀는 못 속인다…청각의 진화생물학"},
+        {"role": "user", "content": "i$대우전Z서,스 국가Me경!BY] 대통O표창"},
+        {"role": "assistant", "content": "동부대우전자서비스 '국가품질경영대회'서 대통령표창"},
+        {"role": "user", "content": "北발사체에 미일 당국자 통화…한미일 협력 확인"},
+        {"role": "assistant", "content": "北발사체에 미일 당국자 통화…한미일 협력 확인"},
+        {"role": "user", "content": "Q해Rg@운>하<) NH'[카드AI크g드P고q=이ui"},
+        {"role": "assistant", "content": "복구 불가"}
+    ]
+}
