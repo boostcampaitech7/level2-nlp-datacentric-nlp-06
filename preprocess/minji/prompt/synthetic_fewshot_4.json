@@ -1,0 +1,24 @@
+{
+    "few-shots": [
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "핵연료재처리·소듐고속로 연구 지속여부 연말 결정(종합)"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "SKT, 통신망 장애시 양자암호키 우회 전송 기술 개발"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "테슬라, 자율주행 등 AI 개발에 올해 100억달러 투자"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "면역세포의 배신?…뇌종양 성장 돕는 면역세포 발견"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "약 10억년 전 곰팡이 화석 발견…진화 역사 바뀌나"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "KIST, 유기태양전지용 고분자 개발…\"전기전도도 5배↑\""},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "구글 \"AI 진단은 의사 대체 못한다…'판단 보조' 역할\""},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "'꿈의 전자파' 테라헤르츠파 세기, 저전력으로 조절"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "화합물, 몸 안에서 '짝꿍' 단백질 찾는 법 새로 개발"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "'화이트 그래핀' 반도체 나올까…대면적 합성 성공"}
+    ]
+}

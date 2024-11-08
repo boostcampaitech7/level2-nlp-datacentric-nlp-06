@@ -4,8 +4,7 @@ import random
 import argparse
 import numpy as np
 
-from trainer import MyTrainer
-import transformers
+from src.trainer import MyTrainer
 
 SEED = 456
 random.seed(SEED)
@@ -18,7 +17,7 @@ os.environ['WANDB_DISABLED'] = 'true'
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data', type=str, default='../../data', help='path where data csv is stored')
+    parser.add_argument('--data', type=str, default='../data', help='path where data csv is stored')
     parser.add_argument('--model', type=str, default='../model', help='path for saving model during training and loading during testing')
     parser.add_argument('--mode', type=str, default='train', help='whether to train, valid or test')
     args = parser.parse_args()
