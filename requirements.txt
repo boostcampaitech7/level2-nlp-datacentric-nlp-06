@@ -21,3 +21,6 @@ wandb
 konlpy
 langchain
 langchain_huggingface
+glob
+difflib
+googletrans
