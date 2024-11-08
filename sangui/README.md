@@ -1,34 +1,33 @@
-### Text Denoising, Relabeling
+# Text Denoising, Relabeling
 아스키코드로 대체된 텍스트의 원문 복구
 
 레이블이 잘못 부여된 데이터의 레이블 재부여
 
-### Performance
-Metrics : Accuracy, F1 score
+## Performance
+### Metrics 
+Accuracy, F1 score
 
-baseline
+### baseline
 
 <img src='./images/baseline.png' height='128'>
 
-mine
+### mine
 
 <img src='./images/mine.png' height='128'>
 
-
-
-### Usage
-## Requirements
+## Usage
+### Requirements
 ```bash
 pip install -r requirements.txt
 ```
 
-## Command
+### Command
 ```bash
 cd ./src
 python run.py
 ```
 
-## Config
+### Config
 ```
 "pivot_name": "ascii_ratio" # prefix of augmented data file name
 "ascii_ratio": "20" # split text noise data/label error data by ascii ratio
