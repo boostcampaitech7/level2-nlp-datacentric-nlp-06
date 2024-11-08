@@ -37,7 +37,7 @@ class MyTrainer:
         model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=7).to(DEVICE)
 
         data = pd.read_csv(os.path.join(self.data_path, 'train.csv'))
-        train, valid_ = train_test_split(data, test_size=0.3, random_state=SEED) # train, test 비율 수정 가능
+        train, valid_ = train_test_split(data, test_size=0.2, random_state=SEED) # train, test 비율 수정 가능
         train = BERTDataset(train, tokenizer)
         valid = BERTDataset(valid_, tokenizer)
 
@@ -98,18 +98,17 @@ class MyTrainer:
             return
 
         tokenizer = AutoTokenizer.from_pretrained(self.model_path)
-
+        
         checkpoints = [d for d in os.listdir(self.model_path) if d.startswith("checkpoint")]
         latest_checkpoint = max(checkpoints, key=lambda x: int(x.split("-")[-1])) if checkpoints else None
         checkpoint_path = os.path.join(self.model_path, latest_checkpoint)
-
         model = AutoModelForSequenceClassification.from_pretrained(checkpoint_path, num_labels=7).to(DEVICE)
         
         model.eval()
         preds = []
 
         for idx, sample in tqdm(test.iterrows(), total=len(test), desc='Evaluating'):
-            inputs = tokenizer(sample['text'], return_tensors='pt').to(DEVICE)
+            inputs = tokenizer(sample['text'], padding='max_length', max_length=50, truncation=True, return_tensors='pt').to(DEVICE)
             with torch.no_grad():
                 logits = model(**inputs).logits
                 pred = torch.argmax(torch.nn.Softmax(dim=1)(logits), dim=1).cpu().numpy()
