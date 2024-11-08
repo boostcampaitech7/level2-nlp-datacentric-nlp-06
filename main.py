@@ -4,8 +4,7 @@ import random
 import argparse
 import numpy as np
 
-from trainer import MyTrainer
-import transformers
+from src.trainer import MyTrainer
 
 SEED = 456
 random.seed(SEED)
