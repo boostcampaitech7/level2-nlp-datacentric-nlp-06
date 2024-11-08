@@ -28,7 +28,7 @@ python -m spacy download ko_core_news_sm
 huggingface-cli login {hf_api_key}
 ```
 
-3. `prep_main.py` 실행 - 최종 성능을 낸 데이터셋 생성
+3. `prep_main.py` 실행 - 최종 성능을 낸 데이터셋 생성 (v1.2.1)
 ```bash
 python prep_main.py
 ```
@@ -55,12 +55,12 @@ python prep_main.py
 - `generate_validset.py`: 학습 데이터 오염 문제로 인해, 평가용 validation set을 별도로 구성하여 초기 성능 평가를 보다 명확하게 하기 위한 파일
 
 ## 데이터셋 버전 관리
-- v0.0.2: validation과 train set 구분 (optional)
-- v0.0.3: 텍스트 denoising 적용
-- v0.0.4: Llama를 활용한 레이블 정제
-- v0.0.5: Cleanlab으로 품질 낮은 레이블 삭제
-- v1.0.1: 7개 레이블에 대해 각 100개의 합성 데이터 생성
-- v1.0.2: 유사한 텍스트 삭제로 데이터 정제
-- v1.0.3: v1.0.2에서 발생한 레이블 오류 데이터 제거
-- v1.1.1: 타겟별 특정 레이블(0, 4, 5)에 대해 200개씩 데이터 증강
-- v1.2.1: v1.0.3과 v1.1.1의 데이터를 병합
+- `v0.0.2`: validation과 train set 구분 (optional)
+- `v0.0.3`: 텍스트 denoising 적용
+- `v0.0.4`: Llama를 활용한 레이블 정제
+- `v0.0.5`: Cleanlab으로 품질 낮은 레이블 삭제
+- `v1.0.1`: 7개 레이블에 대해 각 100개의 합성 데이터 생성
+- `v1.0.2`: 유사한 텍스트 삭제로 데이터 정제
+- `v1.0.3`: v1.0.2에서 발생한 레이블 오류 데이터 제거
+- `v1.1.1`: 타겟별 특정 레이블(0, 4, 5)에 대해 200개씩 데이터 증강
+- `v1.2.1`: v1.0.3과 v1.1.1의 데이터를 병합 (최종 데이터)
