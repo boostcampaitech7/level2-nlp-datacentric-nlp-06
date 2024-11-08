@@ -5,12 +5,16 @@
 
 
 
-## 목표 LLM을 활용한 relabeling 주제 찾기 
+## LLM을 활용한  주제 찾기 및 relabeling
 조건
  '7개의 주제를 직접 입력하는 것은 불가능'
 기사 제목 생성은 가능하지만, 7개의 주제가 무엇인지 알 수 없다고 가정
 7개의 주제를 입력할 때, 매핑된 한국어 정보로 입력이 불가능하고 정수 정보로만 전달
 저희는 7개의 주제가 무엇인지 알고 있지 않는 상황
+
+## 목표
+text의 단어들을 추출하여 LLM 모델을 통한 사용될 7개의 주제 파악 후 relabeling
+
 
 ## relabeling을 위한 데이터 전처리
 #### 데이터 정제 방법(clean.py)
@@ -19,18 +23,24 @@
 3. 2글자 이상 단어 필터링 함수
 
 text의 문장이 불필요한 특수 기호와 한글자로 이루어진 단어들이 LLM 모델이 label 주제를 찾는데 어려움이 있을거로 판단하여 제거 
-또한, 정제된 문장을 활용하여 형태소로 단어들을 추출해 모델에 입력해 label 주제를 찾을 수 있도록 하였습니다.
+또한, 정제된 문장을 활용하여 형태소로 단어들을 추출하여 모델에 입력해 label 주제를 원활하게 찾을 수 있도록 함
 
 
 
 ## Label Filtering
-#### label 찾기 prompting, Langchain(LangchainTestGPT3.py , LangchainLIama.py)
+#### label 찾기 prompting(prompting.py), Langchain(LangchainTestGPT3.py , LangchainLIama.py)
+
 1. prompting
-prompting을 활용하여 7개의 label을 찾을려고 하였으나 잘 추출하지 못하는것을 확인하여 Langchain을 활용하였습니다.
+
+    특수문자와, 불용어를 제거해 2글자 이상으로 구성된 단어를 추출 후 빈도수를 계산하여 상위 단어들 활용
+    prompting 활용하여 7개의 label을 찾을려고 하였으나 잘 추출하지 못하는것을 확인하여 Langchain을 활용
+
 2. Langchain
-LIama2,3 실험 과정 label을 잘 찾지 못하는 것을 확인하여 GPT3를 활용하여 잘 나오는지 확인 후 LIama 코드 수정
-LIama3을 활용하여 label 예측을 수행하여 ([ ] , 1 , 정치) 형태로 추출 되는 것을 확인하였고 잘 추출되는 것도 있지만
-잘 추출하지 못하는 것도 있다는 것을 확인하였습니다.
+
+    LIama2,3 실험 과정 label을 잘 찾지 못하는 것을 확인하여 GPT3를 활용하여 잘 나오는지 확인 후 LIama 코드 수정
+    LIama3을 활용하여 label 예측을 수행하여 ([ ] , 1 , 정치) 형태로 추출 되는 것을 확인하였고 잘 추출되는 것도 있지만
+    잘 추출하지 못하는 것도 있다는 것을 확인
+    이 후 잘 뽑은 정치, 스포츠등 데이터를 활용하여 relabeling을 진행하려 하였으나 진행하지 못하였습니다.
 
 
 
