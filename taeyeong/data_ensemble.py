@@ -5,23 +5,24 @@ import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from tqdm.notebook import tqdm
 from cleanlab.filter import find_label_issues
+import glob
+import argparse
 
 DEVICE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
-def load_datasets(path="your_path/"):
-    # dataset 불러와서 concat 해주는 함수
-    # path: 불러올 데이터셋이 있는 경로 매개변수
-    files = [f"train_dataset_{i}.csv" for i in range(1, 6)]
-    datasets = [pd.read_csv(path + file) for file in files]
-    return pd.concat(datasets, axis=0, ignore_index=True)
+def load_datasets(directory_path):
+    csv_files = glob.glob(os.path.join(directory_path, "*.csv"))
+    df_list = [pd.read_csv(file) for file in csv_files]
+    combined_df = pd.concat(df_list, ignore_index=True)
+    return combined_df
 
-def apply_cleanlab(train, model_path="model_folder_path", display_issues=False):
+def apply_cleanlab(train, model_path, model_name, display_issues=False):
     # cleanlab 사용해서 relabeling 하는 함수
     # model_path: cleanlab에 사용되는 model 경로 매개변수
     # display_issues: relabeling 값 출력 여부 정하는 매개변수
     tokenizer = AutoTokenizer.from_pretrained(model_path)
-    model = AutoModelForSequenceClassification.from_pretrained(model_path + "path", num_labels=7).to(DEVICE)
+    model = AutoModelForSequenceClassification.from_pretrained(model_path + model_name, num_labels=7).to(DEVICE)
     
     model.eval()
     preds = []
@@ -76,11 +77,17 @@ def print_duplicate_samples(train, sample_size=50):
         print(group)
         print("-" * 50)
 
-def main():
-    train = load_datasets()
-    train = apply_cleanlab(train, display_issues=True)
+def main(directory_path, model_path, model_name):
+    train = load_datasets(directory_path)
+    train = apply_cleanlab(train, model_path, model_name, display_issues=True)
     train = remove_duplicates(train)
-    train.to_csv("cleaned_train_data.csv", index=False)
+    train.to_csv(directory_path + "/cleaned_train_data.csv", index=False)
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--data', type=str, default='../dataset', help='path where data csv is stored')
+    parser.add_argument('--model', type=str, default='../model', help='path for saving model during training and loading during testing')
+    parser.add_argument('--model_name', type=str, default="/checkpoint-518", help="model name in your model_path")
+    args = parser.parse_args()
+    
+    main(args.data, args.model, args.model_name)
