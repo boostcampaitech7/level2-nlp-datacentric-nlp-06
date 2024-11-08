@@ -3,6 +3,17 @@
 
 레이블이 잘못 부여된 데이터의 레이블 재부여
 
+### Performance
+Accuracy, F1 score
+
+baseline
+<img src='./assets/baseline.png' height='48'>
+
+mine
+<img src='./assets/mine.png' height='48'>
+
+
+
 ### Usage
 ## Requirements
 ```bash
