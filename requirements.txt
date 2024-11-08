@@ -12,3 +12,15 @@ spacy==3.8.2
 torch==2.1.0
 tqdm==4.67.0
 transformers==4.46.2
+umap_learn
+yaml==0.2.5
+sentencepiece==0.2.0
+accelerate==1.0.1
+ipywidgets
+wandb
+konlpy
+langchain
+langchain_huggingface
+glob
+difflib
+googletrans
