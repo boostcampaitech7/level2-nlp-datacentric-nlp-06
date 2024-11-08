@@ -61,7 +61,7 @@ if __name__ == "__main__":
     # Back Translation
     backtrans_model = BTModel(relabel_data)
     back_aug_data = backtrans_model.backtranslation()
-    back_aug_data = back_aug_data.sample(300,random_state=SEED) # 1504개 중 300개만 추출
+    back_aug_data = back_aug_data.sample(300,random_state=SEED).reset_index(drop=true) # 1504개 중 300개만 추출
     
     # merge original data
     back_concat_data = pd.concat([relabel_data, back_aug_data])
