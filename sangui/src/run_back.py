@@ -52,6 +52,9 @@ torch.cuda.empty_cache()
 print("label split")
 ascii.label_train_valid_split(pivot_name, ascii_ratio)
 
+print("train valid merge")
+ascii.train_valid_merge(pivot_name, ascii_ratio)
+
 # %%
 print("blm")
 blm = BLM(config)
