@@ -63,9 +63,9 @@
 | **과정** | **내용** |
 | --- | --- |
 | **EDA** | • ASCII 코드, 형태소 분석 기반으로 텍스트 데이터의 노이즈 파악 <br> • 텍스트 노이즈와 라벨 노이즈는 겹치지 않는다는 정보를 활용하여 라벨 노이즈 파악 |
-| **텍스트 전처리** &nbsp; | • 규칙 기반: re, hanja, spacy 사용 <br> • 모델 기반: LLaMA* 프롬프팅 |
+| **텍스트 전처리** &nbsp;&nbsp; | • 규칙 기반: re, hanja, spacy 사용 <br> • 모델 기반: LLaMA* 프롬프팅 |
 | **라벨 전처리** | • 재생성: LLaMA* 프롬프팅 <br> • clustering: SBERT(sinjy1203/ko-sbert-navernews)를 사용하여 텍스트 임베딩 <br> • CleanLab: baseline(klue/bert-base) 모델 |
-| **증강** | • Masked Language Modeling: baseline(klue/bert-base), rtzr/ko-gemma-2-9b-it <br> • Back Translation: DeepL, Google Translator, NLLB(facebook/nllb-200-distilled-600M, NHNDQ/nllb-finetuned-en2ko) <br> • Synonym Replacement: baseline(klue/bert-base)의 vocab, SBERT(snunlp/KR-SBERT-V40K-klueNLI-augSTS) 사용 |
+| **증강** | • Masked Language Modeling: baseline(klue/bert-base), rtzr/ko-gemma-2-9b-it <br> • Back Translation: DeepL, Google Translator, NLLB(facebook/nllb-200-distilled-600M, NHNDQ/nllb-finetuned-en2ko) <br> • Synonym Replacement: baseline(klue/bert-base)의 vocab, SBERT(snunlp/KR-SBERT-V40K-klueNLI-augSTS) |
 | **합성 데이터** | • LLaMA* 프롬프팅 |
 | **앙상블** | • 개별적으로 적용한 기법으로 처리한 데이터셋 concat <br> • 유사한 텍스트의 label이 다를 경우, baseline 모델로 추론하여 라벨 부여 |
 
