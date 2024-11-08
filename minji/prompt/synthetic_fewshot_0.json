@@ -1,0 +1,24 @@
+{
+    "few-shots": [
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "영화감독 같은 지휘자, 판타지 영화 같은 말러 교향곡"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "화천 산천어축제 개막…얼음썰매 질주"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "호주한인극단 한영 이중언어 뮤지컬…현지인 관객도 극찬"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "현대무용수 김천웅, 한국인 최초로 이스라엘 바체바무용단 입단"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "'서소문 대법원을 기억하시나요'…대법, 옛 청사 사진전"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "'커피·빵·문화를 즐겨라' 제8회 라라라 페스티벌 개최"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "클래식 공연 즐기고 낮잠도 자고…영화관의 변신"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "[남원소식] 춘향장학재단 장학생 모집"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "호킹 두차례 한국 찾아…소광섭 교수 \"모짜르트 같은 천재\""},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "런던심포니가 들려준 천상의 삶…평화롭지만 지루해"}
+    ]
+}
