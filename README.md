@@ -16,11 +16,11 @@
 
 <br>
 
-### 🤗 역할 분담
+### 🤗 팀원과 역할
 
 | **팀원** | **역할** |
 | --- | --- |
-| 서태영 <a href="https://github.com/sty0507"><img src="./assets/github.png" width="17"></a> &nbsp;&nbsp;&nbsp; | 텍스트 전처리(BT*), 라벨 전처리(PE**), 데이터 앙상블(CleanLab) |
+| 서태영 <a href="https://github.com/sty0507"><img src="./assets/github.png" width="17"></a> | 텍스트 전처리(BT*), 라벨 전처리(PE**), 데이터 앙상블(CleanLab) |
 | 오수현 <a href="https://github.com/ocean010315"><img src="./assets/github.png" width="17"></a> | 베이스라인 코드 모듈화, 텍스트 전처리(정규 표현식 규칙 기반, 프롬프팅*\*), 라벨 전처리(PE*\*, CleanLab), 증강(BT*, SR***), 합성 데이터 생성(PE**) |
 | 이상의 <a href="https://github.com/LeSaUi"><img src="./assets/github.png" width="17"></a> | 텍스트 전처리(ASCII 코드 규칙 기반), 라벨 전처리(Cleanlab), 증강(BT*, MLM\**\*\*) |
 | 이정인 <a href="https://github.com/leeennn"><img src="./assets/github.png" width="17"></a> | 텍스트 전처리(형태소 분석 규칙 기반), 라벨 추출(PE**) |
@@ -38,18 +38,19 @@
 
 ```bash
 .
+├─.github
+├─assets
 ├─preprocess
-│  ├─jeonge
+│  ├─jeonghwi
 │  ├─jeongin
 │  ├─minji
 │  ├─sangui
 │  ├─shyun
-│  └─taeyoung
-│─src
+│  └─taeyeong
+├─src
 │  ├─dataset.py
 │  └─trainer.py
-├─.gitignore
-│─data_ensemble.py
+├─data_ensembel.py
 ├─main.py
 ├─README.md
 └─requirements.txt
@@ -59,7 +60,7 @@
 - `data_ensemble.py`: 개별적으로 수행한 전처리, 증강 데이터에 대한 앙상블 코드
 - `preprocess`: 개별적으로 수행한 데이터 분석, 전처리, 증강 모듈이 포함된 디렉토리
     - 각각의 방식에 대한 확인, 재현은 개별 README.md를 통해 확인
-    - [jeonge](./preprocess/jeonge/README.md), [jeongin](./preprocess/jeongin/README.md), [minji](./preprocess/minji/README.md), [sangui](./preprocess/sangui/README.md), [shyun](./preprocess/shyun/README.md), [taeyoung](./preprocess/taeyoung/README.md)
+    - [jeonghwi](./preprocess/jeonghwi/README.md), [jeongin](./preprocess/jeongin/README.md), [minji](./preprocess/minji/README.md), [sangui](./preprocess/sangui/README.md), [shyun](./preprocess/shyun/README.md), [taeyeong](./preprocess/taeyeong/README.md)
 
 <br>
 
