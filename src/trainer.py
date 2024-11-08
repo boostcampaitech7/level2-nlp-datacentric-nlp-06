@@ -12,7 +12,7 @@ from transformers import DataCollatorWithPadding
 from transformers import TrainingArguments, Trainer
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-from dataset import BERTDataset
+from src.dataset import BERTDataset
 
 SEED = 456
 random.seed(SEED)
