@@ -7,10 +7,10 @@
 Accuracy, F1 score
 
 baseline
-<img src='./assets/baseline.png' height='48'>
+<img src='./images/baseline.png' height='48'>
 
 mine
-<img src='./assets/mine.png' height='48'>
+<img src='./images/mine.png' height='48'>
 
 
 
