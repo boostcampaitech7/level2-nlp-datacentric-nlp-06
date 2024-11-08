@@ -38,18 +38,19 @@
 
 ```bash
 .
+├─.github
+├─assets
 ├─preprocess
-│  ├─jeonge
+│  ├─jeonghwi
 │  ├─jeongin
 │  ├─minji
 │  ├─sangui
 │  ├─shyun
-│  └─taeyoung
-│─src
+│  └─taeyeong
+├─src
 │  ├─dataset.py
 │  └─trainer.py
-├─.gitignore
-│─data_ensemble.py
+├─data_ensembel.py
 ├─main.py
 ├─README.md
 └─requirements.txt
@@ -59,7 +60,7 @@
 - `data_ensemble.py`: 개별적으로 수행한 전처리, 증강 데이터에 대한 앙상블 코드
 - `preprocess`: 개별적으로 수행한 데이터 분석, 전처리, 증강 모듈이 포함된 디렉토리
     - 각각의 방식에 대한 확인, 재현은 개별 README.md를 통해 확인
-    - [jeonge](./preprocess/jeonge/README.md), [jeongin](./preprocess/jeongin/README.md), [minji](./preprocess/minji/README.md), [sangui](./preprocess/sangui/README.md), [shyun](./preprocess/shyun/README.md), [taeyoung](./preprocess/taeyoung/README.md)
+    - [jeonghwi](./preprocess/jeonghwi/README.md), [jeongin](./preprocess/jeongin/README.md), [minji](./preprocess/minji/README.md), [sangui](./preprocess/sangui/README.md), [shyun](./preprocess/shyun/README.md), [taeyeong](./preprocess/taeyeong/README.md)
 
 <br>
 
