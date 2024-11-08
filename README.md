@@ -113,8 +113,9 @@ python main.py --data {data_path} --model {model_path} --mode {train/test}
 **데이터 앙상블**
 
 ```bash
-python data_ensemble.py --data {data_path} --model {model_path}
+python data_ensemble.py --data {data_path} --model {model_path} --model_name {checkpoint_path}
 ```
 
 - **`--data`**: 개별적으로 처리한 학습 데이터를 하나의 폴더 내로 이동
-- **`--model`**: 데이터 앙상블을 적용할 모델 경로
+- **`--model`**: 데이터 앙상블에 사용할 모델 폴더 이름  
+- **`--model_name`**: 모델 폴더 내 모델이 있는 checkpoint 이름
