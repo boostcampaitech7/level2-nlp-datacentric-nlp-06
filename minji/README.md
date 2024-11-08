@@ -23,9 +23,14 @@ pip install -r requirements.txt
 python -m spacy download ko_core_news_sm
 ```
 
-2. `main.py` 실행 - 최종 성능을 낸 데이터셋 생성
+2. huggingface api 연결
 ```bash
-python main.py
+huggingface-cli login {hf_api_key}
+```
+
+3. `prep_main.py` 실행 - 최종 성능을 낸 데이터셋 생성
+```bash
+python prep_main.py
 ```
 
 ## 모듈 설명 (`minji/src` 폴더)
@@ -46,7 +51,7 @@ python main.py
     - `back_translation()`: DeepL API로 번역 후 재번역 (성능 향상되지 않아 최종 모델에는 제외)
 
 ## 기타 파일
-- `main.py`: 최종 데이터셋 생성 스크립트
+- `prep_main.py`: 최종 데이터셋 생성 스크립트
 - `generate_validset.py`: 학습 데이터 오염 문제로 인해, 평가용 validation set을 별도로 구성하여 초기 성능 평가를 보다 명확하게 하기 위한 파일
 
 ## 데이터셋 버전 관리

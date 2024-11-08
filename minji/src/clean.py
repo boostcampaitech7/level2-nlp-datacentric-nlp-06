@@ -198,7 +198,7 @@ class Clean():
         
         # 해당 데이터 삭제 및 저장
         data_sim_del = synthetic_data[~synthetic_data.ID.isin(syn_to_delete)]
-        data_sim_del.to_csv(f"{save_path}train.csv", index=False)
+        data_sim_del.to_csv(f"{save_path}{filename}", index=False)
 
         logging.info(f"Deleted data: {len(syn_to_delete)} / {len(train_data)}")
         
