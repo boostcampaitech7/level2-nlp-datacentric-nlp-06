@@ -62,7 +62,7 @@ class MyTrainer:
             adam_epsilon=1e-08, # 불가
             weight_decay=0.01, # 불가
             lr_scheduler_type='linear', # 불가
-            per_device_train_batch_size=32, # 가능
+            per_device_train_batch_size=16, # 가능
             per_device_eval_batch_size=32, # 32인 건 이유가 있다.
             num_train_epochs=2, # 불가
             # load_best_model_at_end=True,
@@ -96,9 +96,8 @@ class MyTrainer:
         if not os.path.isdir(self.model_path):
             print(f"No model in {self.model_path}")
             return
-
-        tokenizer = AutoTokenizer.from_pretrained(self.model_path)
-        
+        print("Model_path exists")
+        tokenizer = AutoTokenizer.from_pretrained(self.model_path)        
         checkpoints = [d for d in os.listdir(self.model_path) if d.startswith("checkpoint")]
         latest_checkpoint = max(checkpoints, key=lambda x: int(x.split("-")[-1])) if checkpoints else None
         checkpoint_path = os.path.join(self.model_path, latest_checkpoint)

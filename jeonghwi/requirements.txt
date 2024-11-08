@@ -1,0 +1,10 @@
+konlpy
+numpy
+pandas
+sklearn
+langchain
+langchain_huggingface
+sentence_transformers
+umap_learn
+matplotlib
+cleanlab
