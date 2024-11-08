@@ -5,13 +5,13 @@ class SBERT:
     def __init__(self, data):
         self.data = data
         self.model_path = "sinjy1203/ko-sbert-navernews"
-        self.model = SentenceTransformer(model_path)
+        self.model = SentenceTransformer(self.model_path)
 
     def get_embeddings(self, texts):
         return self.model.encode(texts)
 
     def clustering(self, k):
-        embeddings = self.get_embeddings(data["text"])
+        embeddings = self.get_embeddings(self.data["text"])
         kmeans = KMeans(n_clusters=7, random_state=456).fit(embeddings)
         return kmeans
     
@@ -23,7 +23,7 @@ class SBERT:
         """
         def transform_values(input_list):
             # 매핑 딕셔너리 정의
-            mapping = {
+            mapping_num = {
                 4: 0,
                 2: 1,
                 1: 2,
@@ -34,10 +34,10 @@ class SBERT:
             }
             
             # 입력 리스트의 각 요소를 매핑 딕셔너리를 사용해 변환
-            transformed_list = [mapping.get(value, value) for value in input_list]
+            transformed_list = [mapping_num.get(value, value) for value in input_list]
             return transformed_list
         
         relabeled_mapping_list = transform_values(kmeans.labels_)
-        data["target"] = relabeled_mapping_list
+        self.data["target"] = relabeled_mapping_list
         return self.data
 

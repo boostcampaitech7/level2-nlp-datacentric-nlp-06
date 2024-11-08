@@ -25,7 +25,7 @@ if torch.cuda.is_available():
 # 디바이스 설정 (GPU가 사용 가능하면 GPU를 사용하고, 그렇지 않으면 CPU 사용)
 DEVICE = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
-class GemmaModel:
+class GemmaFilterModel:
     def __init__(self, data):
         self.data = data
         self.model_id = "rtzr/ko-gemma-2-9b-it"
@@ -113,7 +113,8 @@ class GemmaModel:
                 few_shot_messages +
                 [{"role":"user", "content":inp_text}]
             ]
-            self.generate_sentence(messages, inp_text)
+            decoded_data = self.generate_sentence(messages, inp_text).replace("\n","")
+            generate_data.append(decoded_data)
         
         self.data["text"] = generate_data
 

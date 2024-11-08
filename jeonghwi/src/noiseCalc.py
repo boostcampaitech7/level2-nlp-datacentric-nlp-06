@@ -33,13 +33,13 @@ def get_noise_df(df,percent,types):
     text_datas = df["text"]
     asc_counts, non_asc_counts, ratios = calculate_ascii_noise_bulk(text_datas)
     df["ratio"] = ratios
-    if types == "up" # n% 초과
-        return df[df["ratio"]>percent]
+    if types == "up": # n% 초과
+        return df[df["ratio"]>percent].drop(columns=["ratio"]).reset_index(drop=True)
 
-    elif types == "down" # n% 미만
-        return df[df["ratio"]<percent]
+    elif types == "down": # n% 미만
+        return df[df["ratio"]<percent].drop(columns=["ratio"]).reset_index(drop=True)
     
     elif types == "middle": # n[0]% 초과 n[1]% 미만
         down_df = df[df["ratio"]<percent[1]]
         result_df = down_df[down_df["ratio"]>percent[0]]
-        return result_df
+        return result_df.drop(columns=["ratio"]).reset_index(drop=True)

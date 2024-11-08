@@ -9,7 +9,7 @@ import evaluate
 import torch
 from torch.utils.data import Dataset, DataLoader
 
-from transformers import AutoModelForSequenceClassification, AutoTokenizer, AutoModelForCausalLM
+from transformers import BartForConditionalGeneration, PreTrainedTokenizerFast
 from transformers import DataCollatorWithPadding
 from transformers import TrainingArguments, Trainer
 
@@ -27,11 +27,8 @@ class MLM_Filter:
     def __init__(self, data):
         self.data = data
         self.model_id = "jian1114/jian_KoBART_title"
-        self.tokenizer = PreTrainedTokenizerFast.from_pretrained(model_id)
-        self.model = BartForConditionalGeneration.from_pretrained(model_id)
-
-        # Masking
-        self.text_masking()
+        self.tokenizer = PreTrainedTokenizerFast.from_pretrained(self.model_id)
+        self.model = BartForConditionalGeneration.from_pretrained(self.model_id)
 
     def replace_ascii_with_mask(self, text):
             # 결과를 저장할 리스트
@@ -60,22 +57,19 @@ class MLM_Filter:
     
     def BART_inference(self):
         masked_text = self.text_masking(self.data["text"])
-        input_ids = self.tokenizer(masked_text, return_tensors='pt')['input_ids']
+        input_ids = self.tokenizer(masked_text, return_tensors='pt', padding=True)['input_ids']
         
         result_text = []
-        for inputs in input_ids:
-            output_ids = self.model.generate(
-                input_ids, 
-                max_length=50, 
-                early_stopping=True,
-                num_beams=3,
-                no_repeat_ngram_size=2,  # 3-그램 이상의 반복 방지
-                temperature=0.7,         # 다양성 조절
-                top_p=0.92,
-                top_k=50
-            )
-            output_text = tokenizer.decode(output_ids[0], skip_special_tokens=True)
-            result_text.append(output_text)
-        
+        output_ids = self.model.generate(
+            input_ids, 
+            max_length=50, 
+            early_stopping=True,
+            num_beams=3,
+            no_repeat_ngram_size=2,  # 3-그램 이상의 반복 방지
+            temperature=0.7,         # 다양성 조절
+            top_p=0.92,
+            top_k=50
+        )
+        result_text = [self.tokenizer.decode(ids, skip_special_tokens=True) for ids in output_ids]
         self.data["text"] = result_text
         return self.data
