@@ -1,0 +1,42 @@
+"pivot_name": "ascii_ratio"
+"ascii_ratio": "20"
+
+
+"data_folder": "../data/"
+"preprocess_data_folder": "../data/preprocess/"
+"train_data_folder": "../data/preprocess/train/"
+"valid_data_folder": "../data/preprocess/valid/"
+
+
+"device": "cuda"
+
+"mlm":
+  "model_name": "klue/bert-base"
+  "model_output_dir": "../model/mlm/"
+  "batch_size": 8
+  "train": True
+  
+"btm":
+  "model_name": "facebook/nllb-200-distilled-600M"
+  "model_output_dir": "../model/btm/"
+  "batch_size": 8
+  "train": True
+
+"rlm":
+  "model_name": "klue/bert-base"
+  "model_output_dir": "../model/rlm/"
+  "batch_size": 32
+  "train": True
+
+"clm":
+  "model_name": '../model/rlm'
+  "model_output_dir": "../model/clm/"
+  "batch_size": 32
+  "train": True
+
+"blm":
+  "model_name": "klue/bert-base"
+  "model_output_dir": "../model/blm/"
+  "batch_size": 32
+  "train": True
+  
