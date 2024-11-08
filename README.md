@@ -20,7 +20,7 @@
 
 | **팀원** | **역할** |
 | --- | --- |
-| 서태영 <a href="https://github.com/sty0507"><img src="./assets/github.png" width="17"></a> &nbsp;&nbsp;&nbsp; | 텍스트 전처리(BT*), 라벨 전처리(PE**), 데이터 앙상블(CleanLab) |
+| 서태영 <a href="https://github.com/sty0507"><img src="./assets/github.png" width="17"></a> | 텍스트 전처리(BT*), 라벨 전처리(PE**), 데이터 앙상블(CleanLab) |
 | 오수현 <a href="https://github.com/ocean010315"><img src="./assets/github.png" width="17"></a> | 베이스라인 코드 모듈화, 텍스트 전처리(정규 표현식 규칙 기반, 프롬프팅*\*), 라벨 전처리(PE*\*, CleanLab), 증강(BT*, SR***), 합성 데이터 생성(PE**) |
 | 이상의 <a href="https://github.com/LeSaUi"><img src="./assets/github.png" width="17"></a> | 텍스트 전처리(ASCII 코드 규칙 기반), 라벨 전처리(Cleanlab), 증강(BT*, MLM\**\*\*) |
 | 이정인 <a href="https://github.com/leeennn"><img src="./assets/github.png" width="17"></a> | 텍스트 전처리(형태소 분석 규칙 기반), 라벨 추출(PE**) |
