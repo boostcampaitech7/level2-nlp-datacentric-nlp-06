@@ -114,3 +114,31 @@ class Ascii():
 
         data = pd.concat([data1, data2])
         data.sort_values(by='ID').to_csv(f"{label_error_name}_rlm_normal_candidates.csv", index=False)
+
+    def train_valid_merge(self, pivot_name, ascii_ratio):
+        data_list = []
+        file_name_list = []
+        for file in sorted(list(Path(self.config['preprocess_data_folder']).glob("*_train.csv")), key=lambda f:f.name):
+            if pivot_name not in file.name or ascii_ratio + "_" not in file.name:continue
+            data = pd.read_csv(file)
+            data_list += [data]
+            file_name_list += [file.name]
+        print("num of train data files:", len(data_list))
+        print("merge train data files:", file_name_list)
+        train_data = pd.concat(data_list)
+        #train_data.to_csv(self.config['data_folder']+"/train.csv", index=False)
+
+        data_list = []
+        file_name_list = []
+        for file in sorted(list(Path(self.config['preprocess_data_folder']).glob("*_valid.csv")), key=lambda f:f.name):
+            if pivot_name not in file.name or ascii_ratio + "_" not in file.name:continue
+            data = pd.read_csv(file)
+            data_list += [data]
+            file_name_list += [file.name]
+        print("num of valid data files:", len(data_list))
+        print("merge valid data files:", file_name_list)
+        valid_data = pd.concat(data_list)
+        #valid_data.to_csv(self.config['data_folder']+"/valid.csv", index=False)
+
+        data = pd.concat([train_data, valid_data])
+        data.to_csv(self.config['data_folder']+"/new_train.csv", index=False)
