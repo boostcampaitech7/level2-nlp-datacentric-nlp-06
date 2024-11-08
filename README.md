@@ -3,7 +3,7 @@
 - 뉴스 기사 제목 분류
 - 모델 파트의 수정 없이 Data-Centric 방식으로 모델의 성능 향상 도모
 - 기간: 2024.10.30 ~ 2024.11.07
-- Wrap-Up Report
+- Wrap-Up Report(업로드 예정)
 
 <p align="center"><img src='./assets/project.png' width="400"></p>
 
@@ -20,12 +20,17 @@
 
 | **팀원** | **역할** |
 | --- | --- |
-| 서태영 <a href="https://github.com/sty0507"><img src="./assets/github.png" width="17"></a> |  |
-| 오수현 <a href="https://github.com/ocean010315"><img src="./assets/github.png" width="17"></a> |  |
-| 이상의 <a href="https://github.com/LeSaUi"><img src="./assets/github.png" width="17"></a> |  |
-| 이정인 <a href="https://github.com/leeennn"><img src="./assets/github.png" width="17"></a> |  |
-| 이정휘 <a href="https://github.com/LeeJeongHwi"><img src="./assets/github.png" width="17"></a> |  |
-| 정민지 <a href="https://github.com/minjijeong98"><img src="./assets/github.png" width="17"></a> |  |
+| 서태영 <a href="https://github.com/sty0507"><img src="./assets/github.png" width="17"></a> &nbsp;&nbsp;&nbsp; | 텍스트 전처리(BT*), 라벨 전처리(PE**), 데이터 앙상블(CleanLab) |
+| 오수현 <a href="https://github.com/ocean010315"><img src="./assets/github.png" width="17"></a> | 베이스라인 코드 모듈화, 텍스트 전처리(정규 표현식 규칙 기반, 프롬프팅*\*), 라벨 전처리(PE*\*, CleanLab), 증강(BT*, SR***), 합성 데이터 생성(PE**) |
+| 이상의 <a href="https://github.com/LeSaUi"><img src="./assets/github.png" width="17"></a> | 텍스트 전처리(ASCII 코드 규칙 기반), 라벨 전처리(Cleanlab), 증강(BT*, MLM\**\*\*) |
+| 이정인 <a href="https://github.com/leeennn"><img src="./assets/github.png" width="17"></a> | 텍스트 전처리(형태소 분석 규칙 기반), 라벨 추출(PE**) |
+| 이정휘 <a href="https://github.com/LeeJeongHwi"><img src="./assets/github.png" width="17"></a> | 텍스트 전처리(ASCII 코드 규칙 기반, MLM*\*\*, PE*\*), 증강(BT*), 합성 데이터 생성(Gemma**), 레이블 전처리(Clustering) |
+| 정민지 <a href="https://github.com/minjijeong98"><img src="./assets/github.png" width="17"></a> | 텍스트 전처리(형태소 분석 규칙 기반, PE**), 라벨 전처리(PE**, SBERT, Clustering), 증강(BT\*), 합성 데이터 생성(PE**) |
+
+> \* Back Translation  
+\** Prompt Engineering  
+\*** Synonym Replacement  
+\***\* Masked Language Modeling
 
 <br>
 
@@ -63,19 +68,21 @@
 | **과정** | **내용** |
 | --- | --- |
 | **EDA** | • ASCII 코드, 형태소 분석 기반으로 텍스트 데이터의 노이즈 파악 <br> • 텍스트 노이즈와 라벨 노이즈는 겹치지 않는다는 정보를 활용하여 라벨 노이즈 파악 |
-| **텍스트 전처리** &nbsp;&nbsp; | • 규칙 기반: re, hanja, spacy 사용 <br> • 모델 기반: LLaMA* 프롬프팅 |
-| **라벨 전처리** | • 재생성: LLaMA* 프롬프팅 <br> • clustering: SBERT(sinjy1203/ko-sbert-navernews)를 사용하여 텍스트 임베딩 <br> • CleanLab: baseline(klue/bert-base) 모델 |
-| **증강** | • Masked Language Modeling: baseline(klue/bert-base), rtzr/ko-gemma-2-9b-it <br> • Back Translation: DeepL, Google Translator, NLLB(facebook/nllb-200-distilled-600M, NHNDQ/nllb-finetuned-en2ko) <br> • Synonym Replacement: baseline(klue/bert-base)의 vocab, SBERT(snunlp/KR-SBERT-V40K-klueNLI-augSTS) |
-| **합성 데이터** | • LLaMA* 프롬프팅 |
+| **텍스트 전처리** &nbsp;&nbsp; | • 규칙 기반: `re`, `hanja`, `spacy` 사용 <br> • 모델 기반: 프롬프팅* |
+| **라벨 전처리** | • 재생성: 프롬프팅* <br> • clustering: SBERT(`sinjy1203/ko-sbert-navernews`)를 사용하여 텍스트 임베딩 <br> • CleanLab: baseline(`klue/bert-base`) 모델 |
+| **증강** | • Masked Language Modeling: baseline(`klue/bert-base`), `jian1114/jian_KoBART_title` <br> • Back Translation: DeepL, Google Translator, NLLB(`facebook/nllb-200-distilled-600M`, `NHNDQ/nllb-finetuned-en2ko`) <br> • Synonym Replacement: baseline(`klue/bert-base`)의 vocab, SBERT(`snunlp/KR-SBERT-V40K-klueNLI-augSTS`) |
+| **합성 데이터** | • 프롬프팅* |
 | **앙상블** | • 개별적으로 적용한 기법으로 처리한 데이터셋 concat <br> • 유사한 텍스트의 label이 다를 경우, baseline 모델로 추론하여 라벨 부여 |
 
-> \* Bllossom/llama-3.2-Korean-Bllossom-3B, meta-llama/Llama-3.1-8B-Instruct, sh2orc/Llama-3.1-Korean-8B-Instruct
+> \*  
+LLaMA: `Bllossom/llama-3.2-Korean-Bllossom-3B`, `meta-llama/Llama-3.1-8B-Instruct`, `sh2orc/Llama-3.1-Korean-8B-Instruct`, `beomi/Llama-3-Open-Ko-8B`  
+Gemma: `rtzr/ko-gemma-2-9b-it`
 
 <br>
 
 ### 🛠️ 환경 설정 및 사용법
 
-> 개별 데이터의 전처리, 증강 방식은 [각각의 README.md](#-🗃️-폴더-구조) 확인
+> 개별 데이터의 전처리, 증강 방식은 각각의 README.md 확인(line 62 참고)
 
 **개발 환경**
 
