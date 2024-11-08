@@ -29,6 +29,7 @@ pip install -r requirements.txt
 - **`src/llama`**: LLaMA 모델을 이용한 **라벨 추출**, **텍스트 정제**, **라벨 정제**(src/prompt에서 system prompt와 fewshot prompt 호출)  
 - **`src/clean`**: re, hanja, cleanlab을 이용한 **텍스트 정제 및 오염도 확인**  
 - **`src/augmentation`**: NLLB 모델, SBERT 모델을 이용한 **역번역**, Easy Data Augmentation-**Synonym Replacement** 증강 기법  
+- 증강의 경우, 증강된 데이터만 csv로 저장되므로 추가로 결합하는 과정 필요(증강 후 검수를 위해 개별적으로 저장되게 지정)
 
 ### 🚀 결과
 **최종 성능**  
@@ -41,6 +42,7 @@ result
 <img src='./assets/final.png' height='48'>  
 
 **최종 선택한 기법**  
+0. `src/llama` extract_label
 1. `src/clean` clean_characters  
 2. `src/llama` clean_text, clean_label  
 3. polluted_lv > 0.3 약 965개 삭제  

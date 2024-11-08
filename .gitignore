@@ -1,5 +1,3 @@
 __pycache__
 wandb
 *.csv
-mecab*
-data.ipynb

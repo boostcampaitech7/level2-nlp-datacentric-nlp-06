@@ -6,14 +6,13 @@ from src.clean import Clean
 from src.augmentation import Augmentation
 
 def main():
-    train_dataset = pd.read_csv('../../v1.3.0/train.csv')
-    
-    with open('key_maps.json', 'r', encoding='utf-8') as f:
-        keys = json.load(f)
-    keys = list(keys.values())
+    train_dataset = pd.read_csv('../../../data/train.csv')
     
     # lama = Llama()
-    # lama.extract_label(train_dataset)
+    # lama.extract_label(train_dataset, path='./test')
+    # with open('key_maps.json', 'r', encoding='utf-8') as f:
+    #     keys = json.load(f)
+    # keys = list(keys.values())
     # lama.clean_text(list(keys.values()), train_dataset, p=0.3, path='./test')
     # lama.clean_label(list(keys.values()), train_dataset, p=0.2, path='./test')
     # lama.generate_new(list(keys.values()), train_dataset, num=10, path='./test')
