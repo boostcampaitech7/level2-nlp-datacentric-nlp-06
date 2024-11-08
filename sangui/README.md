@@ -8,11 +8,11 @@ Metrics : Accuracy, F1 score
 
 baseline
 
-<img src='./images/baseline.png' height='48'>
+<img src='./images/baseline.png' height='128'>
 
 mine
 
-<img src='./images/mine.png' height='48'>
+<img src='./images/mine.png' height='128'>
 
 
 
