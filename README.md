@@ -3,7 +3,7 @@
 - 뉴스 기사 제목 분류
 - 모델 파트의 수정 없이 Data-Centric 방식으로 모델의 성능 향상 도모
 - 기간: 2024.10.30 ~ 2024.11.07
-- Wrap-Up Report(업로드 예정)
+- [Wrap-Up Report](/assets/wrapReport.pdf)
 
 <p align="center"><img src='./assets/project.png' width="400"></p>
 
