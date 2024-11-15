@@ -1,0 +1,24 @@
+{
+    "few-shots": [
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "네이버 '투자 선호' 스타트업은 배달앱·물류 서비스社"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "코스닥 정보 갈증 풀리나…기술 보고서 매주 10여건 발간"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "5G 스마트폰 시대 기본요금 오른다…\"월 5만5천원부터\"(종합)"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "한진그룹 3세 조원태 대한항공 총괄 부사장에 선임"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "[특징주] 아이폰X '조기 단종설'에 부품주 급락(종합)"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "갤S9·신형 LG V30 내달 9일 동시출시 유력…가격 90만원대"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "LGU+, 웰컴저축은행과 최고 연 8% 금리 적금 출시"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "미래에셋대우 엔씨소프트 매출 1위 굳건…목표가↑"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "갤S9 부진에 삼성 스마트폰 2분기 주춤…영업익 2.7조"},
+        {"role": "user", "content": "뉴스 기사 제목을 생성하라"},
+        {"role": "assistant", "content": "[특징주] 메가엠디, 자회사 합병에 급등"}
+    ]
+}
